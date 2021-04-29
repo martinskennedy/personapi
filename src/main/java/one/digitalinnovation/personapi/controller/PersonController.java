@@ -1,30 +1,61 @@
 package one.digitalinnovation.personapi.controller;
 
-import one.digitalinnovation.personapi.dto.MessageResponseDTO;
-import one.digitalinnovation.personapi.entity.Person;
+import lombok.AllArgsConstructor;
+import one.digitalinnovation.personapi.dto.request.PersonDTO;
+import one.digitalinnovation.personapi.dto.response.MessageResponseDTO;
+import one.digitalinnovation.personapi.exception.PersonNotFoundException;
 import one.digitalinnovation.personapi.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-// Classe que é o ponto de entrada do projeto
+import javax.validation.Valid;
+import java.util.List;
 
-@RestController // controlador que vai ser acessado por uma API Rest
-@RequestMapping("/api/v1/people")  // caminho principal da API
+@RestController
+@RequestMapping("/api/v1/people")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonController {
-    @GetMapping // requisição da pagina para teste
-    public String getBook() {return  "API Test!";} // para testar conexão
 
     private PersonService personService;
 
-    @Autowired
-    public PersonController(PersonService personService) {
-        this.personService = personService;
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponseDTO createPerson(@RequestBody Person person) {
-        return personService.createPerson(person);
+    public MessageResponseDTO createPerson(@RequestBody @Valid PersonDTO personDTO) {
+        return personService.createPerson(personDTO);
     }
+
+    @GetMapping
+    public List<PersonDTO> listAll() {
+        return personService.listAll();
+    }
+
+    @GetMapping("/{id}")
+    public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
+        return personService.findById(id);
+    }
+
+//    @PutMapping("/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public MessageResponseDTO update(@PathVariable Long id, @RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
+//        return personService.update(id, personDTO);
+//    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) throws PersonNotFoundException {
+        personService.delete(id);
+    }
+
+
 }
+
+//    @GetMapping
+//    public List<PersonDTO> listAll() {
+//        return personService.listAll();
+//    }
+//
+
+//
+
+//}
