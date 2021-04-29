@@ -65,30 +65,4 @@ public class PersonService {
                 .message(message + id)
                 .build();
     }
-
-
-
-    //private final PersonMapper personMapper;
-
-//    public MessageResponseDTO create(PersonDTO personDTO) {
-//        Person person = personMapper.toModel(personDTO);
-//        Person savedPerson = personRepository.save(person);
-//
-//        MessageResponseDTO messageResponse = createMessageResponse("Person successfully created with ID ", savedPerson.getId());
-//
-//        return messageResponse;
-//    }
-//
-//    public List<PersonDTO> listAll() {
-//        List<Person> people = personRepository.findAll();
-//        return people.stream()
-//                .map(personMapper::toDTO)
-//                .collect(Collectors.toList());
-//    }
-//
-//    private MessageResponseDTO createMessageResponse(String s, Long id2) {
-//        return MessageResponseDTO.builder()
-//                .message(s + id2)
-//                .build();
-//    }
 }

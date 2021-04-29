@@ -8,7 +8,6 @@ import one.digitalinnovation.personapi.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonController {
 
-    private PersonService personService;
+    private final PersonService personService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -35,27 +34,9 @@ public class PersonController {
         return personService.findById(id);
     }
 
-//    @PutMapping("/{id}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public MessageResponseDTO update(@PathVariable Long id, @RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
-//        return personService.update(id, personDTO);
-//    }
-
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) throws PersonNotFoundException {
         personService.delete(id);
     }
-
-
 }
-
-//    @GetMapping
-//    public List<PersonDTO> listAll() {
-//        return personService.listAll();
-//    }
-//
-
-//
-
-//}
